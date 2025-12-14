@@ -27,6 +27,13 @@ namespace _1Demo
             loginName.Text = user.fullName;
             main_ = main;
             load();
+            if (user.role == "Guest")
+            {
+                find.Visibility = Visibility.Hidden;
+                sortComboBox.Visibility = Visibility.Hidden;
+                sortByManufacturerCB.Visibility = Visibility.Hidden;
+            }
+            
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -36,6 +43,7 @@ namespace _1Demo
         }
         void load()
         {
+            List<string> manufacturers = new List<string>();
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=3hoursEliseev;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -70,9 +78,105 @@ FROM            dbo.Категории$ INNER JOIN
                             };
                             productCard productCard = new productCard(product);
                             stackPanel.Children.Add(productCard);
+                            manufacturers.Add(product.manufacturer);
                         }
                     }
                 }
+            }
+            manufacturers = manufacturers.Distinct().ToList();
+            sortByManufacturerCB.Items.Add("Все производители");
+            foreach (var item in manufacturers)
+            {
+                sortByManufacturerCB.Items.Add(item);
+            }
+            
+        }
+
+        private void find_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string query = ((TextBox)sender).Text;
+            foreach (var child in stackPanel.Children)
+            {
+                if (child is productCard card)
+                {
+                    if (card.hasMatches(query))
+                    {
+                        card.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        card.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
+        private void sortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            switch (((ComboBox)sender).SelectedIndex)
+            {
+                case 0:
+                    List<productCard> cards = new List<productCard>();
+                    foreach (var item in stackPanel.Children)
+                    {
+                        if (item is productCard card)
+                            cards.Add(card);
+                    }
+                    cards = cards.OrderBy(p => p.getProduct().count).ToList();
+                    stackPanel.Children.Clear();
+                    foreach (var item in cards)
+                    {
+                        stackPanel.Children.Add(item);
+                    }
+                    break;
+                case 1:
+                    List<productCard> cardsdesc = new List<productCard>();
+                    foreach (var item in stackPanel.Children)
+                    {
+                        if (item is productCard card)
+                            cardsdesc.Add(card);
+                    }
+                    cards = cardsdesc.OrderByDescending(p => p.getProduct().count).ToList();
+                    stackPanel.Children.Clear();
+                    foreach (var item in cards)
+                    {
+                        stackPanel.Children.Add(item);
+                    }
+                    break;
+            }
+        }
+
+        private void sortByManufacturerCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            switch (((ComboBox)sender).SelectedIndex)
+            {
+                case 0:
+                    foreach (var item in stackPanel.Children)
+                    {
+                        ((productCard)item).Visibility = Visibility.Visible;
+                    }
+                    break;
+                default:
+                    string query = ((ComboBox)sender).SelectedValue.ToString();
+
+                    foreach (var child in stackPanel.Children)
+                    {
+                        if (child is productCard card)
+                        {
+                            if (card.hasMatches(query))
+                            {
+                                card.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                card.Visibility = Visibility.Collapsed;
+                            }
+                        }
+                    }
+                    break;
+
             }
         }
     }

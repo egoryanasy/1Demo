@@ -20,9 +20,11 @@ namespace _1Demo
     /// </summary>
     public partial class productCard : UserControl
     {
+        Product product_;
         public productCard(Product product)
         {
             InitializeComponent();
+            product_ = product;
             title.Text = product.category + " | " + product.naimenovanie;
             opisanie.Text = "Описание товара: " + product.text;
             manufacturer.Text = "Поставщик: " + product.manufacturer;
@@ -55,6 +57,28 @@ namespace _1Demo
                 Photo.Source = new BitmapImage(new Uri(@"/photoes/picture.png", UriKind.RelativeOrAbsolute));
             };
             
+        }
+
+        public bool hasMatches(string query)
+        {
+            if (product_.text.Contains(query)||
+                product_.naimenovanie.Contains(query)||
+                product_.manufacturer.Contains(query)||
+                product_.postavshik.Contains(query)||
+                product_.article.Contains(query)||
+                product_.category.Contains(query))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        public Product getProduct()
+        {
+            return product_;
         }
     }
 }
