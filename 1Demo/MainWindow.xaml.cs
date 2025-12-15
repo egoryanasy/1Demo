@@ -30,7 +30,6 @@ namespace _1Demo
         {
             string login = Login.Text;
             string password = Password.Password;
-
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=3hoursEliseev;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

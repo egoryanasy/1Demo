@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="addAndRedactForm.xaml.cs">
+      <DependentUpon>addAndRedactForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Product.cs" />
     <Compile Include="productCard.xaml.cs">
       <DependentUpon>productCard.xaml</DependentUpon>
@@ -68,6 +71,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_3hoursEliseevDataSet.xsd</DependentUpon>
     </Compile>
+    <Page Include="addAndRedactForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_1Demo"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="790" Background="Chartreuse">
+             d:DesignHeight="200" d:DesignWidth="790" Background="Chartreuse" MouseLeftButtonUp="UserControl_MouseLeftButtonUp">
+
     <Border BorderBrush="Black" BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,8 +26,8 @@
                     <TextBlock x:Name="postavshik"></TextBlock>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Цена:" Grid.Column="0"></TextBlock>
@@ -34,7 +35,7 @@
                         <TextBlock x:Name="priceWithDiscount" Grid.Column="2"></TextBlock>
 
                     </Grid>
-                    
+
                     <TextBlock x:Name="ed"></TextBlock>
                     <TextBlock x:Name="count"></TextBlock>
                 </StackPanel>
@@ -43,7 +44,7 @@
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2">
                 <TextBlock x:Name="discount" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Border>
-            
+
         </Grid>
     </Border>
 </UserControl>

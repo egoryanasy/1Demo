@@ -80,5 +80,10 @@ namespace _1Demo
         {
             return product_;
         }
+
+        private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            new addAndRedactForm(product_, 0).ShowDialog();
+        }
     }
 }
