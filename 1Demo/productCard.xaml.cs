@@ -21,8 +21,10 @@ namespace _1Demo
     public partial class productCard : UserControl
     {
         Product product_;
-        public productCard(Product product)
+        Staff staff_;
+        public productCard(Product product, Staff staff)
         {
+            staff_= staff;
             InitializeComponent();
             product_ = product;
             title.Text = product.category + " | " + product.naimenovanie;
@@ -83,7 +85,7 @@ namespace _1Demo
 
         private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            new addAndRedactForm(product_, 0).ShowDialog();
+            new addAndRedactForm(product_, 0, staff_).ShowDialog();
         }
     }
 }

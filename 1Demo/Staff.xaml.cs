@@ -42,8 +42,9 @@ namespace _1Demo
             this.Close();
             main_.Show();
         }
-        void load()
+        public void load()
         {
+            stackPanel.Children.Clear();
             List<string> manufacturers = new List<string>();
             string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=3hoursEliseev;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -77,7 +78,7 @@ FROM            dbo.Категории$ INNER JOIN
                                 text = reader.GetValue(9) as string,
                                 photoPath = reader.GetValue(10) as string
                             };
-                            productCard productCard = new productCard(product);
+                            productCard productCard = new productCard(product, this);
                             stackPanel.Children.Add(productCard);
                             manufacturers.Add(product.manufacturer);
                         }
@@ -179,6 +180,11 @@ FROM            dbo.Категории$ INNER JOIN
                     break;
 
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 

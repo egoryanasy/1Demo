@@ -25,12 +25,11 @@ namespace _1Demo
         {
             InitializeComponent();
         }
-
+        string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=3hoursEliseev;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
         private void Enter_Click(object sender, RoutedEventArgs e)
         {
             string login = Login.Text;
             string password = Password.Password;
-            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=3hoursEliseev;Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"SELECT        dbo.Пользователи$.ФИО, dbo.Роли$.название, dbo.Пользователи$.логин, dbo.Пользователи$.пароль
@@ -79,6 +78,11 @@ namespace _1Demo
             MessageBox.Show("Вы вошли как Гость");
             this.Hide();
             new Staff(user, this).Show();
+        }
+
+        public string getConnectionStr()
+        {
+            return connectionString;
         }
     }
 }
